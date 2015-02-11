@@ -1,36 +1,67 @@
+//var Perceptron = require('./perceptron');
+
 var synaptic = require('synaptic');
 var Neuron = synaptic.Neuron,
     Layer = synaptic.Layer,
     Network = synaptic.Network,
     Trainer = synaptic.Trainer,
-    Achitect = synaptic.Architect;
+    Architect = synaptic.Architect;
 
 
 function Perceptron(input, hidden, output) {
 
     // spin up some layers:
-    var inputLayer = new Layer(input);
-    var hiddenLayer = new Layer(hidden);
-    var outputLayer = new Layer(output);
+    var inputLayer = new Layer(input, 'input');
+    var hiddenLayer = new Layer(hidden, 'hidden');
+    var outputLayer = new Layer(output, 'output');
 
-    // then we connect them:
-    inputLayer.project(hiddenLayer);
-    hiddenLayer.project(outputLayer);
+
+
+    //console.log(this);
 
     // set the layers onto the perceptron:
-    this.set({
+    this.layers = {
         input: inputLayer,
         hidden: hiddenLayer,
         output: outputLayer
-    });
+    };
+
+    this.inputs = function () {
+        return this.layers.input.size;
+    };
+
+    this.outputs = function () {
+        return this.layers.output.size;
+    };
+
+    this.activate = function (input) {
+        // then we connect them:
+        inputLayer.project(hiddenLayer);
+        hiddenLayer.project(outputLayer);
+    };
+
+
+    /*this.layers.input = inputLayer;
+    this.layers.hidden = hiddenLayer;
+    this.layers.output = outputLayer;*/
+
+    /*this.set({
+     input: inputLayer,
+     hidden: hiddenLayer,
+     output: outputLayer
+     });*/
 
     // extending the prototype of perceptron:
     Perceptron.prototype = new Network();
-    Perceptron.prototype.constructor = Perceptron();
+    Perceptron.prototype.constructor = Perceptron;
 }
+
+
 
 var myPerceptron = new Perceptron(2, 3, 1);
 var myTrainer = new Trainer(myPerceptron);
+
+//console.log('my perceptron: ', myPerceptron);
 
 myTrainer.XOR();
 
