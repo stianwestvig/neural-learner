@@ -1,6 +1,7 @@
 {
   "name": "neural-network-test",
   "dependencies": {
+    "gulp": "^3.8.11",
     "synaptic": "^0.1.6"
   }
 }
