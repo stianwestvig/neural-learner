@@ -1,0 +1,6 @@
+{
+  "name": "neural-network-test",
+  "dependencies": {
+    "synaptic": "^0.1.6"
+  }
+}
